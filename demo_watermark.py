@@ -28,7 +28,7 @@ import torch
 from transformers import (AutoTokenizer,
                           AutoModelForSeq2SeqLM,
                           AutoModelForCausalLM,
-                          LogitsProcessorList)
+                          LogitsProcessorList, AutoModelWithLMHead)
 
 from watermark_processor import WatermarkLogitsProcessor, WatermarkDetector
 
@@ -174,17 +174,23 @@ def parse_args():
 def load_model(args):
     """Load and return the model and tokenizer"""
 
-    args.is_seq2seq_model = any([(model_type in args.model_name_or_path) for model_type in ["t5","T0"]])
-    args.is_decoder_only_model = any([(model_type in args.model_name_or_path) for model_type in ["gpt","opt","bloom"]])
-    if args.is_seq2seq_model:
-        model = AutoModelForSeq2SeqLM.from_pretrained(args.model_name_or_path)
-    elif args.is_decoder_only_model:
-        if args.load_fp16:
-            model = AutoModelForCausalLM.from_pretrained(args.model_name_or_path,torch_dtype=torch.float16, device_map='auto')
-        else:
-            model = AutoModelForCausalLM.from_pretrained(args.model_name_or_path)
-    else:
-        raise ValueError(f"Unknown model type: {args.model_name_or_path}")
+    # args.is_seq2seq_model = any([(model_type in args.model_name_or_path) for model_type in ["t5","T0"]])
+    # args.is_decoder_only_model = any([(model_type in args.model_name_or_path) for model_type in ["gpt","opt","bloom"]])
+    # if args.is_seq2seq_model:
+    #     model = AutoModelForSeq2SeqLM.from_pretrained(args.model_name_or_path)
+    # elif args.is_decoder_only_model:
+    #     if args.load_fp16:
+    #         model = AutoModelForCausalLM.from_pretrained(args.model_name_or_path,torch_dtype=torch.float16, device_map='auto')
+    #     else:
+    #         model = AutoModelForCausalLM.from_pretrained(args.model_name_or_path)
+    # else:
+    #     raise ValueError(f"Unknown model type: {args.model_name_or_path}")
+    try:
+        model = AutoModelWithLMHead.from_pretrained(args.model_name_or_path)
+    except:
+        model = AutoModelForCausalLM.from_pretrained(args.model_name_or_path)
+    args.is_decoder_only_model = True
+    args.is_seq2seq_model = False
 
     if args.use_gpu:
         device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -648,6 +654,9 @@ def main(args):
         "or white. All have a unique pattern of wiggly, black markings or spots "
         "on their body and head. The diamondback terrapin has large webbed "
         "feet.[9] The species is"
+        )
+        input_text = (
+        "Write a Python code to print Hello World"
         )
 
         args.default_prompt = input_text
