@@ -633,32 +633,11 @@ def main(args):
 
     # Generate and detect, report to stdout
     if not args.skip_model_load:
-        input_text = (
-        "The diamondback terrapin or simply terrapin (Malaclemys terrapin) is a "
-        "species of turtle native to the brackish coastal tidal marshes of the "
-        "Northeastern and southern United States, and in Bermuda.[6] It belongs "
-        "to the monotypic genus Malaclemys. It has one of the largest ranges of "
-        "all turtles in North America, stretching as far south as the Florida Keys "
-        "and as far north as Cape Cod.[7] The name 'terrapin' is derived from the "
-        "Algonquian word torope.[8] It applies to Malaclemys terrapin in both "
-        "British English and American English. The name originally was used by "
-        "early European settlers in North America to describe these brackish-water "
-        "turtles that inhabited neither freshwater habitats nor the sea. It retains "
-        "this primary meaning in American English.[8] In British English, however, "
-        "other semi-aquatic turtle species, such as the red-eared slider, might "
-        "also be called terrapins. The common name refers to the diamond pattern "
-        "on top of its shell (carapace), but the overall pattern and coloration "
-        "vary greatly. The shell is usually wider at the back than in the front, "
-        "and from above it appears wedge-shaped. The shell coloring can vary "
-        "from brown to grey, and its body color can be grey, brown, yellow, "
-        "or white. All have a unique pattern of wiggly, black markings or spots "
-        "on their body and head. The diamondback terrapin has large webbed "
-        "feet.[9] The species is"
-        )
-        input_text = (
-        "def print_hello_world:"
-        )
-        input_text = '''def print_hello_world:'''
+        # input_text = (
+        # "def print_hello_world:"
+        # )
+        inp = input("Prompt: ")
+        input_text = (inp)
 
         args.default_prompt = input_text
 
