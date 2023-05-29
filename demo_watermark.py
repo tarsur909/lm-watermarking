@@ -658,6 +658,7 @@ def main(args):
         input_text = (
         "def print_hello_world:"
         )
+        input_text = '''def print_hello_world:'''
 
         args.default_prompt = input_text
 
