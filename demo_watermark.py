@@ -656,7 +656,7 @@ def main(args):
         "feet.[9] The species is"
         )
         input_text = (
-        "Write a Python code to print Hello World"
+        "def print_hello_world:"
         )
 
         args.default_prompt = input_text
