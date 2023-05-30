@@ -633,11 +633,17 @@ def main(args):
 
     # Generate and detect, report to stdout
     if not args.skip_model_load:
-        # input_text = (
-        # "def print_hello_world:"
-        # )
-        inp = input("Prompt: ")
-        input_text = (inp)
+        input_text = (
+            """def largest_prime_factor(n: int):
+            
+            >>> largest_prime_factor(13195)
+                29
+            >>> largest_prime_factor(2048)
+                2 
+            """
+        )
+        # inp = input("Prompt: ")
+        # input_text = (inp)
 
         args.default_prompt = input_text
 
