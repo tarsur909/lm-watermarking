@@ -634,13 +634,15 @@ def main(args):
     # Generate and detect, report to stdout
     if not args.skip_model_load:
         input_text = (
-            """def hello_world():
-            ''' this program returns a Hello World string ''' 
-            >>> hello_world()
-                "Hello World!"
-            >>> hello_world()
-                "Hello World!"
+            """def largest_prime_factor(n: int):
+            '''
+            >>> largest_prime_factor(13195)
+                29
+            >>> largest_prime_factor(2048)
+                2
+            '''
             """
+           
         )
         # inp = input("Prompt: ")
         # input_text = (inp)
